@@ -24,6 +24,7 @@ function validadeProjectId(request, response, next) {
 }
 
 app.use(logRequests);
+app.use('/projects/:id', validadeProjectId)
 
 app.get('/projects', (request, response) => {
     const {title} = request.query;
@@ -41,7 +42,7 @@ app.post('/projects', (request, response) => {
     return response.json(project);
 });
 
-app.put('/projects/:id', validadeProjectId, (request, response) =>{
+app.put('/projects/:id', (request, response) =>{
     const {id} = request.params;
     const { title, owner } = request.body;
     const projectIndex = projects.findIndex(project => project.id === id);
@@ -59,7 +60,7 @@ app.put('/projects/:id', validadeProjectId, (request, response) =>{
     return response.json(project);
 });
 
-app.delete('/projects/:id', validadeProjectId, (request, response) =>{
+app.delete('/projects/:id', (request, response) =>{
     const {id} = request.params;
     const projectIndex = projects.findIndex(project => project.id === id);
 
